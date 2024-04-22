@@ -20,16 +20,6 @@ CREATE TABLE `Account` (
 	UNIQUE KEY `email` (`email`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- CREATE TABLE `anouncement` (
---   `id` int NOT NULL AUTO_INCREMENT,
---   `start_date` datetime DEFAULT NULL,
---   `end_date` datetime DEFAULT NULL,
---   `description` varchar(255),
---   `status` int DEFAULT NULL,
---   `created_by` int NOT NULL,  
---   PRIMARY KEY (`id`),
---   FOREIGN KEY (`created_by`) REFERENCES `account` (`role`)  -- Khóa ngoại với bảng `account`
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `product` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -44,14 +34,14 @@ CREATE TABLE `product` (
   `contact` varchar(255) ,
   `hidden_content` varchar(255),
   `status_product` int, 
-  `status_checking` varchar(255),
+  `status_checking` int DEFAULT 0,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`created_by`) REFERENCES `account` (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `order_history` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `status` int DEFAULT NULL,
+  `status` int DEFAULT 0 comment "status_checking",
   `seller_id` int DEFAULT NULL,
   `buyer_id` int DEFAULT NULL,
   `product_id` int DEFAULT NULL,
@@ -59,27 +49,39 @@ CREATE TABLE `order_history` (
   `description` varchar(255) ,
   `contact` varchar(255) ,
   `hidden_content` varchar(255) ,
-  `created_date` datetime ,
-  `updated_date` datetime ,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (`seller_id`) REFERENCES `account` (`id`),
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE `statusHistory` (
+  `id` int not null auto_increment,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `statusChecking` int,
+  `createdBy` int,
+  `productId` int,
+  primary key(id),
+  FOREIGN KEY (`createdBy`) references `account` (`id`) 
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-
-CREATE TABLE `recharge` (
+CREATE TABLE `myCart` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `userid` int NOT NULL,
-  `transid` varchar(255) ,
+  `status_fee` int DEFAULT NULL,
+  `status_checking` int,
+  `seller_id` int DEFAULT NULL,
+  `buyer_id` int DEFAULT NULL,
+  `product_id` int DEFAULT NULL,
   `price` float DEFAULT NULL,
   `description` varchar(255) ,
-  `status_transaction` int DEFAULT NULL,
-  `created_date` datetime DEFAULT current_timestamp(),
-  `updated_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`userid`) REFERENCES `account` (`id`)
+  `contact` varchar(255) ,
+  `hidden_content` varchar(255) ,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (`seller_id`) REFERENCES `account` (`id`),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 CREATE TABLE `withdraw` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -96,17 +98,9 @@ CREATE TABLE `withdraw` (
   FOREIGN KEY (`userid`) references `account`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `payment_history` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `userid` int NOT NULL,
-  `withdraw_request_id` int,
-  `price` float,
-  `bank_name` varchar(255),
-  `bank_branch` varchar(255),
-  `status_transaction` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`userid`) REFERENCES `account` (`id`),
-  foreign key (`withdraw_request_id`) references `withdraw` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
+alter table order_history add is_complain bool;
+alter table order_history add request_complain text;
+alter table order_history add response_complain text;
+alter table order_history add is_payback bool;
+alter table mycart add order_history_id integer
