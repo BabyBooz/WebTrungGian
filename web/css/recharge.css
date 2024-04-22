@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+
+}
+
+header {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 10px 0;
+}
+
+.container-xl {
+    margin-top: 20px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.table-title h2 {
+    margin-bottom: 20px;
+}
+
+.table-title b {
+    color: #343a40;
+}
+
+footer {
+    background-color: #343a40;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.menu_iconb {
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+/* Style for buttons */
+.drop {
+    background-color: #343a40;
+    color: #ffffff;
+    border: none;
+    padding: 8px 20px;
+    cursor: pointer;
+}
+
+.drop:hover {
+    background-color: #23272b;
+}
+.card {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #f0f3f5;
+    border-bottom: none;
+    text-align: left;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.form-label-horizontal {
+    text-align: right;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.form-control {
+    padding: 0.5rem;
+}
+
+.form-control[readonly] {
+    background-color: #f5f5f5;
+}
+.btn-choose{
+    background-color: #21A8D4;
+    border-color: #6AC5E5;
+    color: white;
+    
+}
+.btn-choose:hover {
+    background-color: #20A8D8;
+    border-color: #20A8D8;
+}
+
+.btn-secondary {
+    background-color: #c8ced3;
+    border-color: #c8ced3;
+    color: black;
+}
+
+.btn-secondary:hover {
+    background-color: #e5e5e5;
+    border-color: #e5e5e5;
+}
+
+/*.btn-secondary:focus {
+    box-shadow: none;
+}*/
+
+.left-align {
+    text-align: left;
+}
+.btn-success {
+    color: #fff;
+    background-color: #39CC6C;
+    border-color: #39CC6C;
+}
+.btn-success:hover {
+    background-color: #3EA662;
+    border-color: #3EA662;
+}
